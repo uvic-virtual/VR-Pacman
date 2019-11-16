@@ -1,24 +1,37 @@
-﻿using System.Collections;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class GhostMovement : MonoBehaviour
 {
     /// <summary>
+    /// "Constant" for checking if ghost has reached destination. </summary>
+    [SerializeField] private float DestinationDistanceCheck = 0.5f;
+   
+    /// <summary>
     /// Parent Gameobject to mark intersections of maze.</summary>
     [SerializeField] private GameObject NavigationMarkers;
+    private List<Transform> WaypointList;
 
     private NavMeshAgent agent;
 
     /// <summary>
     /// Iterable way to tell agent to move to next waypoint.</summary>
-    private IEnumerator Destinations;
+    private IEnumerator<Transform> Waypoints;  
 
     private void Start()
     {
+        //Get list of waypoints minus parent.
+        WaypointList = NavigationMarkers.GetComponentsInChildren<Transform>().Where(child => child.parent != null).ToList();
+
+        //Get enumerable thing of waypoints
+        Waypoints = WaypointList.GetEnumerator();
+        Waypoints.MoveNext();
+
+        //set agent destination to first waypoint.
         agent = GetComponent<NavMeshAgent>();
-        Destinations = VisitPoints();
-        Destinations.MoveNext();
+        agent.SetDestination(Waypoints.Current.position);
     }
 
     private void Update()
@@ -26,39 +39,23 @@ public class GhostMovement : MonoBehaviour
         //check if nav agent as arrived at current waypoint.
         if (AtDestination())
         {
-            //move to next waypoint, or reset if at end.
-            if (!Destinations.MoveNext())
+            if (!Waypoints.MoveNext())
             {
-                Destinations = VisitPoints();
+                Waypoints = WaypointList.GetEnumerator();
+                Waypoints.MoveNext();
             }
+            agent.SetDestination(Waypoints.Current.position);
         }
     }
 
-    /// <summary>
-    /// Go through all the points in the navigation waypoints.  
-    /// Move next moves to next waypoint.
-    /// </summary>
-    /// <returns>Ienumerator for going to next waypoint.</returns>
-    private IEnumerator VisitPoints()
-    {
-        foreach (Transform waypoint in NavigationMarkers.transform)
-        {
-            agent.SetDestination(waypoint.position);
-            yield return null;
-        }
-    }
-
-    /// <summary>
-    /// Returns if the agent has reached it's destination.
-    /// </summary>
-    /// <returns></returns>
+    //Returns true if the agent has reached it's destination.
     private bool AtDestination()
     {
-        return (Vector3.Distance(transform.position, agent.destination) < 0.5f);
+        return (Vector3.Distance(transform.position, agent.destination) < DestinationDistanceCheck);
 
         //copied from the internet.  maybe tinker to get to work?
-        return agent.pathPending && 
-               agent.remainingDistance <= agent.stoppingDistance &&
-               (!agent.hasPath || agent.velocity.sqrMagnitude == 0f);
+        //return agent.pathPending && 
+        //       agent.remainingDistance <= agent.stoppingDistance &&
+        //       (!agent.hasPath || agent.velocity.sqrMagnitude == 0f);
     }
 }
