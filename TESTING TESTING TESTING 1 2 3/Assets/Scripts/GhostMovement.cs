@@ -41,8 +41,7 @@ public class GhostMovement : MonoBehaviour
     /// <returns>Ienumerator for going to next waypoint.</returns>
     private IEnumerator VisitPoints()
     {
-        var waypoints = NavigationMarkers.GetComponentsInChildren<Transform>();
-        foreach (var waypoint in waypoints)
+        foreach (Transform waypoint in NavigationMarkers.transform)
         {
             agent.SetDestination(waypoint.position);
             yield return null;
