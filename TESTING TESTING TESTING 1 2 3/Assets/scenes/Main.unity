@@ -2493,7 +2493,7 @@ Transform:
   - {fileID: 1059211639}
   - {fileID: 1645127134}
   m_Father: {fileID: 952304124}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &743266767
 GameObject:
@@ -3244,6 +3244,7 @@ Transform:
   m_LocalPosition: {x: 0, y: -4, z: 0}
   m_LocalScale: {x: 4, y: 7, z: 4}
   m_Children:
+  - {fileID: 1978946217}
   - {fileID: 740521615}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -5614,6 +5615,34 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1921499583}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1978946216
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1978946217}
+  m_Layer: 0
+  m_Name: PickupOrbs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1978946217
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1978946216}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.44689724, y: -24.31208, z: -4.7169356}
+  m_LocalScale: {x: 0.25, y: 0.14285713, z: 0.25}
+  m_Children: []
+  m_Father: {fileID: 952304124}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1981867599
 GameObject:
   m_ObjectHideFlags: 0
