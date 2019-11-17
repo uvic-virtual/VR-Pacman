@@ -12,26 +12,29 @@ public class GhostMovement : MonoBehaviour
     /// <summary>
     /// Parent Gameobject to mark intersections of maze.</summary>
     [SerializeField] private GameObject NavigationMarkers;
-    private List<Transform> WaypointList;
+
+    [SerializeField] private string WaypointTag = "Waypoint";
+
+    /// <summary>
+    /// List of all the waypoints to visit.</summary>
+    private List<Transform> Waypoints;
+
+    /// <summary>
+    /// Iterator for waypoints list.</summary>
+    private IEnumerator<Transform> WaypointsEnum;
 
     private NavMeshAgent agent;
 
-    /// <summary>
-    /// Iterable way to tell agent to move to next waypoint.</summary>
-    private IEnumerator<Transform> Waypoints;  
-
     private void Start()
     {
-        //Get list of waypoints minus parent.
-        WaypointList = NavigationMarkers.GetComponentsInChildren<Transform>().Where(child => child.parent != null).ToList();
-
-        //Get enumerable thing of waypoints
-        Waypoints = WaypointList.GetEnumerator();
-        Waypoints.MoveNext();
+        //Get list of waypoints.
+        Waypoints = NavigationMarkers.GetComponentsInChildren<Transform>().Where(child => child.CompareTag(WaypointTag)).ToList();
+        WaypointsEnum = Waypoints.GetEnumerator();
 
         //set agent destination to first waypoint.
         agent = GetComponent<NavMeshAgent>();
-        agent.SetDestination(Waypoints.Current.position);
+        WaypointsEnum.MoveNext();
+        agent.SetDestination(WaypointsEnum.Current.position);
     }
 
     private void Update()
@@ -39,12 +42,12 @@ public class GhostMovement : MonoBehaviour
         //check if nav agent as arrived at current waypoint.
         if (AtDestination())
         {
-            if (!Waypoints.MoveNext())
+            if (!WaypointsEnum.MoveNext())
             {
-                Waypoints = WaypointList.GetEnumerator();
-                Waypoints.MoveNext();
+                WaypointsEnum = Waypoints.GetEnumerator();
+                WaypointsEnum.MoveNext();
             }
-            agent.SetDestination(Waypoints.Current.position);
+            agent.SetDestination(WaypointsEnum.Current.position);
         }
     }
 
