@@ -1,24 +1,34 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-public class Pickup : MonoBehaviour {
 
-	private int count;
-	public Text countText;
-	void Start (){
-		count = 0;
-		SetCountText();
+public class Pickup : MonoBehaviour
+{
+
+    public Text countText;
+
+    private int Count
+    {
+        get { return _count;  }
+
+        set
+        {
+            _count = value;
+            countText.text = "Count: " + _count.ToString();
+        }
+    }
+    private int _count;
+
+    void Start ()
+    {
+		Count = 0;
 	}
-	void OnTriggerEnter(Collider other)
+
+    void OnTriggerEnter(Collider other)
 	{
-		if(other.gameObject.CompareTag("PickupOrb")){
-			other.gameObject.SetActive (false);
-			count = count + 10;
-			SetCountText();
+		if (other.gameObject.CompareTag("PickupOrb"))
+        {
+            Destroy(other.gameObject);
+			Count = Count + 10;
 		}
-	}
-	void SetCountText (){
-		countText.text = "Count: " + count.ToString ();
 	}
 }
