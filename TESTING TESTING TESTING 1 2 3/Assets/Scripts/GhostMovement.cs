@@ -8,33 +8,29 @@ public class GhostMovement : MonoBehaviour
     /// <summary>
     /// "Constant" for checking if ghost has reached destination. </summary>
     [SerializeField] private float DestinationDistanceCheck = 0.5f;
-   
-    /// <summary>
-    /// Parent Gameobject to mark intersections of maze.</summary>
-    [SerializeField] private GameObject NavigationMarkers;
 
     [SerializeField] private string WaypointTag = "Waypoint";
 
     /// <summary>
     /// List of all the waypoints to visit.</summary>
-    private List<Transform> Waypoints;
+    private List<GameObject> Waypoints;
 
     /// <summary>
     /// Iterator for waypoints list.</summary>
-    private IEnumerator<Transform> WaypointsEnum;
+    private IEnumerator<GameObject> WaypointsEnum;
 
     private NavMeshAgent agent;
 
     private void Start()
     {
         //Get list of waypoints.
-        Waypoints = NavigationMarkers.GetComponentsInChildren<Transform>().Where(child => child.CompareTag(WaypointTag)).ToList();
+        Waypoints = GameObject.FindGameObjectsWithTag(WaypointTag).Where(child => child.CompareTag(WaypointTag)).ToList();
         WaypointsEnum = Waypoints.GetEnumerator();
 
         //set agent destination to first waypoint.
         agent = GetComponent<NavMeshAgent>();
         WaypointsEnum.MoveNext();
-        agent.SetDestination(WaypointsEnum.Current.position);
+        agent.SetDestination(WaypointsEnum.Current.transform.position);
     }
 
     private void Update()
@@ -47,7 +43,7 @@ public class GhostMovement : MonoBehaviour
                 WaypointsEnum = Waypoints.GetEnumerator();
                 WaypointsEnum.MoveNext();
             }
-            agent.SetDestination(WaypointsEnum.Current.position);
+            agent.SetDestination(WaypointsEnum.Current.transform.position);
         }
     }
 
