@@ -637,5 +637,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DestinationDistanceCheck: 0.5
-  NavigationMarkers: {fileID: 87632119}
   WaypointTag: Waypoint
