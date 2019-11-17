@@ -24,7 +24,7 @@ public class GhostMovement : MonoBehaviour
     private void Start()
     {
         //Get list of waypoints.
-        Waypoints = GameObject.FindGameObjectsWithTag(WaypointTag).Where(child => child.CompareTag(WaypointTag)).ToList();
+        Waypoints = GameObject.FindGameObjectsWithTag(WaypointTag).ToList();
         WaypointsEnum = Waypoints.GetEnumerator();
 
         //set agent destination to first waypoint.
