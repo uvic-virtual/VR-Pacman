@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,7 +10,7 @@ public abstract class GhostMovement : MonoBehaviour
 
     private IEnumerator<Transform> ScatterEnumerator;
 
-    protected static List<GameObject> Waypoints;
+    protected static GameObject[] Waypoints;
 
     protected static GameObject Player;
 
@@ -29,7 +28,7 @@ public abstract class GhostMovement : MonoBehaviour
         }
         if (Waypoints == null)
         {
-            Waypoints = GameObject.FindGameObjectsWithTag("Waypoint").ToList();
+            Waypoints = GameObject.FindGameObjectsWithTag("Waypoint");
         }
         Agent = GetComponent<NavMeshAgent>();
     }
@@ -52,7 +51,7 @@ public abstract class GhostMovement : MonoBehaviour
         }
         else if (CurrentState == State.Frightened)
         {
-            int randomIndex = Random.Range(0, Waypoints.Count);
+            int randomIndex = Random.Range(0, Waypoints.Length);
             return Waypoints[randomIndex].transform.position;
         }
         else //state == Scatter
@@ -67,5 +66,4 @@ public abstract class GhostMovement : MonoBehaviour
     }
 
     protected abstract Vector3 GetNextChaseDestination();
-
 }
