@@ -3,3 +3,23 @@ set target texture in miniMap Camera
 add texture to material
 add material to a plane
 attatch plane to camera or to arm
+
+
+The "What the heck does this do" table:
+
+Dynamic MiniMap Display:
+The "screen" that displays the map. Can be attatched to anything (like the wrist of the player)
+
+MiniMap Viewer:
+is a camera that only sees the minimap so it can display the minimap over any other object in the game
+This can probably be removed when added to a vr player
+aka: the minimap doesn not go behind walls.
+
+
+Dynamic MiniMap Camera:
+The camera in the sky looking at the entire map. Displays to a texture called "MiniMapTexture".
+
+Desktop MiniMap Camera:
+A different camera in the sky that displays at the bottom of the screen.
+Use this one if using the dekstop player prefab. (The other camera disables up and down looking for some reason).
+If you use this one, disable everything else in this table.
