@@ -1,3 +1,4 @@
+Setup:
 make sure main camera is a higher depth
 set target texture in miniMap Camera
 add texture to material
