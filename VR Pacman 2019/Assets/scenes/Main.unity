@@ -5105,7 +5105,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &544224520
 AudioListener:
   m_ObjectHideFlags: 0
@@ -5312,7 +5312,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!81 &579672029
 AudioListener:
   m_ObjectHideFlags: 0
@@ -17434,11 +17434,11 @@ GameObject:
   - component: {fileID: 2087358138}
   m_Layer: 0
   m_Name: MiniMap Viewer
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2087358137
 Transform:
   m_ObjectHideFlags: 0
