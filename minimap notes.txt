@@ -22,5 +22,5 @@ The camera in the sky looking at the entire map. Displays to a texture called "M
 
 Desktop MiniMap Camera:
 A different camera in the sky that displays at the bottom of the screen.
-Use this one if using the dekstop player prefab. (The other camera disables up and down looking for some reason).
-If you use this one, disable everything else in this table.
+Use this one if you want the camera to look like a GUI aspect rather than an object in the world.
+-If you use this one, disable everything else in this table.
