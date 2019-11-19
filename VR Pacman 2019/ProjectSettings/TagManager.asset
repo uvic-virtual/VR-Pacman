@@ -7,6 +7,7 @@ TagManager:
   - PickupOrb
   - Waypoint
   - Teleport1
+  - Powerup
   layers:
   - Default
   - TransparentFX

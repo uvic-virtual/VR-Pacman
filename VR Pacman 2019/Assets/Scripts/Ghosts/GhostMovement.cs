@@ -8,6 +8,10 @@ public abstract class GhostMovement : MonoBehaviour
 
     [SerializeField] private List<Transform> ScatterPoints;
 
+    public enum State { Chase, Frightened, Scatter, Dead };
+
+    public State CurrentState { get; private set; }
+
     private IEnumerator<Transform> ScatterEnumerator;
 
     protected static GameObject[] Waypoints;
@@ -16,9 +20,7 @@ public abstract class GhostMovement : MonoBehaviour
 
     private NavMeshAgent Agent;
 
-    public enum State { Chase, Frightened, Scatter };
-
-    public static State CurrentState;
+    private Vector3 PreviousDestination;
 
     private void Start()
     {
@@ -31,6 +33,10 @@ public abstract class GhostMovement : MonoBehaviour
             Waypoints = GameObject.FindGameObjectsWithTag("Waypoint");
         }
         Agent = GetComponent<NavMeshAgent>();
+
+        //Add delegates that change ghost's state to player 
+        Pickup.Powerup += OnPlayerPowerUp;
+        Pickup.Powerdown += OnPlayerPowerDown;
     }
 
     private void Update()
@@ -39,6 +45,7 @@ public abstract class GhostMovement : MonoBehaviour
 
         if (AtDestination)
         {
+            PreviousDestination = transform.position;
             Agent.SetDestination(GetNextDestination());
         }
     }
@@ -64,6 +71,18 @@ public abstract class GhostMovement : MonoBehaviour
             return ScatterEnumerator.Current.position;
         }
     }
-
+    
     protected abstract Vector3 GetNextChaseDestination();
+
+    private void OnPlayerPowerUp()
+    {
+        Agent.SetDestination(PreviousDestination);
+        CurrentState = State.Frightened;
+    }
+
+    private void OnPlayerPowerDown()
+    {
+        CurrentState = State.Chase;
+    }
 }
+
