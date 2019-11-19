@@ -1,0 +1,5 @@
+make sure main camera is a higher depth
+set target texture in miniMap Camera
+add texture to material
+add material to a plane
+attatch plane to camera or to arm
