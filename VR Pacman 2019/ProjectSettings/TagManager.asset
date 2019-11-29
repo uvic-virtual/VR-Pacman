@@ -8,6 +8,9 @@ TagManager:
   - Waypoint
   - Teleport1
   - Powerup
+  - FxTemporaire
+  - projectile
+  - PlayerCamera
   layers:
   - Default
   - TransparentFX
