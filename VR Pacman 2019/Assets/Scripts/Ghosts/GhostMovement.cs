@@ -16,7 +16,7 @@ public abstract class GhostMovement : MonoBehaviour
 
     protected static GameObject[] Waypoints;
 
-    protected static GameObject Player;
+    [SerializeField] protected GameObject Player;
 
     private NavMeshAgent Agent;
 
