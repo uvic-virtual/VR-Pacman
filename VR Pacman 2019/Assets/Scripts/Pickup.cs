@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class Pickup : MonoBehaviour
 {
     public float PowerupDelay = 15;
-    public int remaining_pickups = 10;
+    public int remaining_pickups = 168;
     
     //Events for ghosts
     public delegate void GhostMethod();
@@ -15,9 +15,16 @@ public class Pickup : MonoBehaviour
     public event GhostMethod Powerdown;
 
     public Text ScoreText;
+    public Text LevelText;
 
     private static int Score = 0;
+    private static int Level = 1;
 
+    void Update()
+    {
+        ScoreText.text = "Score: " + Score.ToString();
+        LevelText.text = "Level: " + Level.ToString();
+    }
     void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.CompareTag("PickupOrb"))
@@ -36,6 +43,7 @@ public class Pickup : MonoBehaviour
         if(remaining_pickups == 0)
         {
             SceneManager.LoadScene("Main", LoadSceneMode.Single);
+            Level++;
         }
         Debug.Log(remaining_pickups);
 	}
