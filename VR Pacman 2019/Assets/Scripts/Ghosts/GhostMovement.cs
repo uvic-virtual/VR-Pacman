@@ -7,48 +7,45 @@ public abstract class GhostMovement : MonoBehaviour
     [SerializeField] private float DestinationDistanceCheck = 0.5f;
 
     [SerializeField] private List<Transform> ScatterPoints;
-
+    
+    [SerializeField] protected GameObject Player;
+   
     public enum State { Chase, Frightened, Scatter, Dead };
 
     public State CurrentState { get; private set; }
 
-    private IEnumerator<Transform> ScatterEnumerator;
+    protected GameObject[] Waypoints;
 
-    protected static GameObject[] Waypoints;
-
-    [SerializeField] protected GameObject Player;
+    protected Pickup PlayerPickup;
 
     private NavMeshAgent Agent;
 
     private Vector3 PreviousDestination;
 
+    private IEnumerator<Transform> ScatterEnumerator;
+
     private void Start()
     {
-        if (Player == null)
-        {
-            Player = GameObject.FindGameObjectWithTag("Player");
-        }
-        if (Waypoints == null)
-        {
-            Waypoints = GameObject.FindGameObjectsWithTag("Waypoint");
-        }
+        Player = GameObject.FindGameObjectWithTag("Player");
+        PlayerPickup = Player.GetComponentInChildren<Pickup>();
+        Waypoints = GameObject.FindGameObjectsWithTag("Waypoint");
         Agent = GetComponent<NavMeshAgent>();
 
         //Add delegates that change ghost's state to player 
-        Pickup.Powerup += OnPlayerPowerUp;
-        Pickup.Powerdown += OnPlayerPowerDown;
+        PlayerPickup.Powerup += OnPlayerPowerUp;
+        PlayerPickup.Powerdown += OnPlayerPowerDown;
     }
-
+    
     private void Update()
     {
-        bool AtDestination = Vector3.Distance(transform.position, Agent.destination) < DestinationDistanceCheck;
-
-        if (AtDestination)
+        //If at destination
+        if (Vector3.Distance(transform.position, Agent.destination) < DestinationDistanceCheck)
         {
             PreviousDestination = transform.position;
             Agent.SetDestination(GetNextDestination());
         }
     }
+
 
     private Vector3 GetNextDestination()
     {

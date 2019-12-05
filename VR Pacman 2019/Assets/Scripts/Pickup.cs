@@ -1,47 +1,43 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
+
 
 public class Pickup : MonoBehaviour
 {
     public float PowerupDelay = 15;
-
+    public int remaining_pickups = 10;
+    
     //Events for ghosts
     public delegate void GhostMethod();
-    public static event GhostMethod Powerup;
-    public static event GhostMethod Powerdown;
+    public event GhostMethod Powerup;
+    public event GhostMethod Powerdown;
 
-    public Text countText;
+    public Text ScoreText;
 
-    private int Count
-    {
-        get { return _count;  }
-
-        set
-        {
-            _count = value;
-            countText.text = "Count: " + _count.ToString();
-        }
-    }
-    private int _count;
-
-    void Start ()
-    {
-		Count = 0;
-	}
+    private static int Score = 0;
 
     void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.CompareTag("PickupOrb"))
         {
             Destroy(other.gameObject);
-			Count = Count + 10;
+            Score += 10;
+            ScoreText.text = "Score: " + Score.ToString();
+            remaining_pickups--;
 		}
         else if (other.gameObject.CompareTag("Powerup"))
         {
             Destroy(other.gameObject);
             StartCoroutine("FruitRoutine");
+            remaining_pickups--;
         }
+        if(remaining_pickups == 0)
+        {
+            SceneManager.LoadScene("Main", LoadSceneMode.Single);
+        }
+        Debug.Log(remaining_pickups);
 	}
 
     private IEnumerator FruitRoutine()
