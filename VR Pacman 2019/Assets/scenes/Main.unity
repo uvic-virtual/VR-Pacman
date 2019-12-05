@@ -1114,7 +1114,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5, y: 5, z: 1}
+  m_Size: {x: 50, y: 5, z: 100}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &839497950
 MonoBehaviour:
@@ -1128,7 +1128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PowerupDelay: 15
-  remaining_pickups: 10
+  remaining_pickups: 168
   ScoreText: {fileID: 528316756}
   LevelText: {fileID: 975571136}
 --- !u!4 &859405425 stripped
