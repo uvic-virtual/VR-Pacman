@@ -7,7 +7,15 @@ public class Teleporter : MonoBehaviour
 	public Transform Teleport1;
 	public GameObject Player;
 
-	void OnTriggerEnter(Collider other)
+    private void Start()
+    {
+        if (Player == null)
+        {
+            Player = GameObject.FindGameObjectWithTag("Player");
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
 	{
 		Player.transform.position = Teleport1.transform.position;
 	}
