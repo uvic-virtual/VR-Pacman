@@ -8,7 +8,7 @@ public abstract class GhostMovement : MonoBehaviour
 
     [SerializeField] private List<Transform> ScatterPoints;
 
-    public enum State { Chase, Frightened, Scatter, Dead };
+    public enum State { Chase, Frightened, Scatter };
 
     public State CurrentState { get; private set; }
 
@@ -39,40 +39,11 @@ public abstract class GhostMovement : MonoBehaviour
         Pickup.Powerdown += OnPlayerPowerDown;
     }
 
-    private void Update()
+    private void OnDestroy()
     {
-        bool AtDestination = Vector3.Distance(transform.position, Agent.destination) < DestinationDistanceCheck;
-
-        if (AtDestination)
-        {
-            PreviousDestination = transform.position;
-            Agent.SetDestination(GetNextDestination());
-        }
+        Pickup.Powerup -= OnPlayerPowerUp;
+        Pickup.Powerdown -= OnPlayerPowerDown;
     }
-
-    private Vector3 GetNextDestination()
-    {
-        if (CurrentState == State.Chase)
-        {
-            return GetNextChaseDestination();
-        }
-        else if (CurrentState == State.Frightened)
-        {
-            int randomIndex = Random.Range(0, Waypoints.Length);
-            return Waypoints[randomIndex].transform.position;
-        }
-        else //state == Scatter
-        {
-            if (!ScatterEnumerator.MoveNext())
-            {
-                ScatterEnumerator = ScatterPoints.GetEnumerator();
-                ScatterEnumerator.MoveNext();
-            }
-            return ScatterEnumerator.Current.position;
-        }
-    }
-    
-    protected abstract Vector3 GetNextChaseDestination();
 
     private void OnPlayerPowerUp()
     {
@@ -84,5 +55,44 @@ public abstract class GhostMovement : MonoBehaviour
     {
         CurrentState = State.Chase;
     }
+
+    private void Update()
+    {
+        bool AtDestination = Vector3.Distance(transform.position, Agent.destination) < DestinationDistanceCheck;
+
+        if (AtDestination)
+        {
+            PreviousDestination = transform.position;
+            Agent.SetDestination(GetNextDestination());
+        }
+    }
+
+    
+    private Vector3 GetNextDestination()
+    {
+        switch (CurrentState)
+        {
+            case State.Chase:
+                return GetNextChaseDestination();
+
+            case State.Frightened:
+                int randomIndex = Random.Range(0, Waypoints.Length);
+                return Waypoints[randomIndex].transform.position;
+
+            case State.Scatter:
+                if (!ScatterEnumerator.MoveNext())
+                {
+                    ScatterEnumerator = ScatterPoints.GetEnumerator();
+                    ScatterEnumerator.MoveNext();
+                }
+                return ScatterEnumerator.Current.position;
+
+            default:
+                Debug.Log("Invalid ghost state");
+                return PreviousDestination;
+        }
+    }
+
+    protected abstract Vector3 GetNextChaseDestination();
 }
 
