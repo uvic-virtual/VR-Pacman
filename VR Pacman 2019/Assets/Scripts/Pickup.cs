@@ -39,10 +39,10 @@ public class Pickup : MonoBehaviour
             StartCoroutine("FruitRoutine");
             remainingPickups--;
         }
-        if (remaining_pickups == 0)
+        if (remainingPickups == 0)
         {
             SceneManager.LoadScene("Main", LoadSceneMode.Single);
-            Level++;
+            level++;
         }
     }
 
@@ -57,5 +57,10 @@ public class Pickup : MonoBehaviour
         {
             Powerdown();
         }
+    }
+
+    public static int getLevel()
+    {
+        return level;
     }
 }
