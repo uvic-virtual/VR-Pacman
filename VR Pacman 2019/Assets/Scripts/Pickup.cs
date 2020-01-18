@@ -1,46 +1,43 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Pickup : MonoBehaviour
 {
     public float PowerupDelay = 15;
+    public int remainingPickups = 168;
 
     //Events for ghosts
     public delegate void GhostMethod();
     public static event GhostMethod Powerup;
     public static event GhostMethod Powerdown;
 
-    public Text countText;
+    public Text scoreText;
+    public Text levelText;
 
-    private int Count
+    private static int score = 0;
+    private static int level = 1;
+    
+    void Update()
     {
-        get { return _count;  }
-
-        set
-        {
-            _count = value;
-            countText.text = "Count: " + _count.ToString();
-        }
+        scoreText.text = "Score: " + score.ToString();
+        levelText.text = "Level: " + level.ToString();
     }
-    private int _count;
-
-    void Start ()
-    {
-		Count = 0;
-	}
 
     void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.CompareTag("PickupOrb"))
         {
             Destroy(other.gameObject);
-			Count = Count + 10;
+			score = score + 10;
+            remainingPickups--;
 		}
         else if (other.gameObject.CompareTag("Powerup"))
         {
             Destroy(other.gameObject);
             StartCoroutine("FruitRoutine");
+            remainingPickups--;
         }
 	}
 
