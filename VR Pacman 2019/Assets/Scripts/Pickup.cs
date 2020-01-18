@@ -39,7 +39,12 @@ public class Pickup : MonoBehaviour
             StartCoroutine("FruitRoutine");
             remainingPickups--;
         }
-	}
+        if (remaining_pickups == 0)
+        {
+            SceneManager.LoadScene("Main", LoadSceneMode.Single);
+            Level++;
+        }
+    }
 
     private IEnumerator FruitRoutine()
     {
