@@ -14,7 +14,7 @@ public class ArmSwing : MonoBehaviour
 
     [SerializeField] private SteamVR_Action_Boolean trigger;
     [SerializeField] private SteamVR_Input_Sources handType;
-    [SerializeField] private float moveSpeed = 5.0f;
+    [SerializeField] private float moveSpeed = 7.0f;
 
     void Start()
     {
@@ -45,6 +45,7 @@ public class ArmSwing : MonoBehaviour
     private Vector3 UpdateDirection()
     {
         Transform direction = leftHand.transform;
+        Debug.DrawRay(direction.position,direction.forward, Color.green);
         //If the controller is pointing up
         if (Vector3.Angle(direction.forward, Vector3.up) < 10f)
             return new Vector3(-direction.up.x, 0, -direction.up.z).normalized;
@@ -61,18 +62,19 @@ public class ArmSwing : MonoBehaviour
     {
         if (lastLocation[0] == Vector3.zero && lastLocation[1] == Vector3.zero)
         {
-            lastLocation[0] = leftHand.transform.position;
-            lastLocation[1] = rightHand.transform.position;
+            lastLocation[0] = leftHand.transform.localPosition;
+            lastLocation[1] = rightHand.transform.localPosition;
             return 0f;
         }
+        //function calculate magnitudeof displacement on the z,y axis
         Func<Vector3, Vector3, double> mag = (pos1, pos2) =>
             Math.Sqrt(Math.Pow(Math.Abs(pos1.z) - Math.Abs(pos2.z), 2) + Math.Pow(Math.Abs(pos1.y) - Math.Abs(pos2.y), 2));
-        float magL = (float)mag(leftHand.transform.position, lastLocation[0]);
-        float magR = (float)mag(rightHand.transform.position, lastLocation[1]);
+        float magL = (float)mag(leftHand.transform.localPosition, lastLocation[0]);
+        float magR = (float)mag(rightHand.transform.localPosition, lastLocation[1]);
 
         double Speed = (magL + magR) / 2f / Time.deltaTime;
-        lastLocation[0] = leftHand.transform.position;
-        lastLocation[1] = rightHand.transform.position;
+        lastLocation[0] = leftHand.transform.localPosition;
+        lastLocation[1] = rightHand.transform.localPosition;
         return (float)Speed / 5f;
     }
 

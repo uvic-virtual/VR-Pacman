@@ -5,7 +5,7 @@
       "app_key": "application.generated.unity.testingtestingtesting123.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "action_manifest_path": "C:\\Users\\domen\\Desktop\\VR pacman\\VR-Pacman-desktop\\VR Pacman 2019\\Assets\\StreamingAssets\\SteamVR\\actions.json",
+      "action_manifest_path": "D:\\Virtual_Club\\Public Release\\VR-Pacman\\VR Pacman 2019\\Assets\\StreamingAssets\\SteamVR\\actions.json",
       "strings": {
         "en_us": {
           "name": "TESTING TESTING TESTING 1 2 3 [Testing]"
