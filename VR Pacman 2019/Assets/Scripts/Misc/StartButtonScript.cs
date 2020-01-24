@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class StartButtonScript : MonoBehaviour {
 
-	void StartButtonPush()
+	public void StartButtonPush()
     {
-
+        Debug.Log("pressed button");
     }
 }
