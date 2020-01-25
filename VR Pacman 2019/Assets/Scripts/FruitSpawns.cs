@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FruitSpawns : MonoBehaviour {
+public class FruitSpawns : MonoBehaviour 
+{
 	
 	private string ActiveFruit;
 	private static int Level;
 	private GameObject ActiveFruitObject;
 	
-	void Awake () {
+	void Awake () 
+	{
 		Level = Pickup.getLevel();
 
 		if (Level == 1)     {ActiveFruit = "Cherry"; }
