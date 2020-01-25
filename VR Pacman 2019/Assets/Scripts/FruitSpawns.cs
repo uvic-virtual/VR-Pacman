@@ -29,7 +29,12 @@ public class FruitSpawns : MonoBehaviour
 		{
 			Fruit.SetActive(false);			
 			i++;
+			if(Fruit.name == ActiveFruit)
+			{
+				ActiveFruitObject = GameObjectArray[i];
+			}
 		}
+		Invoke("SpawnActiveFruit", 30f);
 	}
 	
 	void SpawnActiveFruit()
@@ -38,6 +43,14 @@ public class FruitSpawns : MonoBehaviour
 		{
 			FruitsCollected++;
 			ActiveFruitObject.SetActive(true);
+		}
+	}
+	
+	void OnTriggerEnter(collider other)
+	{
+		if(other.gameObject.CompareTag("Fruit"))
+		{
+			Invoke("SpawnActiveFruit", 30f);
 		}
 	}
 }
