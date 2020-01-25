@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class FruitSpawns : MonoBehaviour 
 {
-	
 	private string ActiveFruit;
+	private int FruitsCollected = 0;
 	private static int Level;
 	private GameObject ActiveFruitObject;
+	
 	
 	void Awake () 
 	{
@@ -28,6 +29,15 @@ public class FruitSpawns : MonoBehaviour
 		{
 			Fruit.SetActive(false);			
 			i++;
+		}
+	}
+	
+	void SpawnActiveFruit()
+	{
+		if(FruitsCollected < 2)
+		{
+			FruitsCollected++;
+			ActiveFruitObject.SetActive(true);
 		}
 	}
 }
