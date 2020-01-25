@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FruitSpawns : MonoBehaviour {
-	public string ActiveFruit;
+	
+	private string ActiveFruit;
 	private static int Level;
-	GameObject ActiveFruitObject; 
+	private GameObject ActiveFruitObject;
+	
 	void Awake () {
 		Level = Pickup.getLevel();
 
