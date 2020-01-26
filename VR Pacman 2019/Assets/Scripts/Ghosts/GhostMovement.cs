@@ -1,25 +1,25 @@
 ﻿using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.AI;
 
 public abstract class GhostMovement : MonoBehaviour
 {
-    [SerializeField] private float DestinationDistanceCheck = 0.5f;
-
-    [SerializeField] private List<Transform> ScatterPoints;
+    [SerializeField]
+    private float DestinationDistanceCheck = 0.5f;
 
     public enum State { Chase, Frightened, Scatter };
-
     public State CurrentState { get; private set; }
 
+    [SerializeField]
+    private List<Transform> ScatterPoints;
     private IEnumerator<Transform> ScatterEnumerator;
+    protected GameObject[] Waypoints;
 
-    protected static GameObject[] Waypoints;
-
-    [SerializeField] protected GameObject Player;
+    [SerializeField]
+    protected GameObject Player;
 
     private NavMeshAgent Agent;
-
     private Vector3 PreviousDestination;
 
     private void Start()
@@ -28,10 +28,7 @@ public abstract class GhostMovement : MonoBehaviour
         {
             Player = GameObject.FindGameObjectWithTag("Player");
         }
-        if (Waypoints == null)
-        {
-            Waypoints = GameObject.FindGameObjectsWithTag("Waypoint");
-        }
+        Waypoints = GameObject.FindGameObjectsWithTag("Waypoint");
         Agent = GetComponent<NavMeshAgent>();
 
         //Add delegates that change ghost's state to player 
@@ -58,15 +55,12 @@ public abstract class GhostMovement : MonoBehaviour
 
     private void Update()
     {
-        bool AtDestination = Vector3.Distance(transform.position, Agent.destination) < DestinationDistanceCheck;
-
-        if (AtDestination)
+        if (Vector3.Distance(transform.position, Agent.destination) < DestinationDistanceCheck)
         {
             PreviousDestination = transform.position;
             Agent.SetDestination(GetNextDestination());
         }
     }
-
     
     private Vector3 GetNextDestination()
     {
