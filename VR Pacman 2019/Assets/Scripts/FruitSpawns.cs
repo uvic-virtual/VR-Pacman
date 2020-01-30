@@ -8,20 +8,37 @@ public class FruitSpawns : MonoBehaviour
 	private int FruitsCollected = 0;
 	private static int Level;
 	
-	
 	void Awake () 
 	{
 		Level = Pickup.getLevel();
 
-		if (Level == 1)     {ActiveFruit = "Cherry"; }
-		else if(Level == 2) {ActiveFruit = "Strawberry";}
-		else if(Level == 3) {ActiveFruit = "Orange";}
-		else if(Level == 4) {ActiveFruit = "Apple";}
-		else if(Level == 5) {ActiveFruit = "Melon";}
-		else if(Level == 6) {ActiveFruit = "Galaxian";}
-		else if(Level == 7) {ActiveFruit = "Bell";}
-		else if(Level > 7 ) {ActiveFruit = "Key";}
-
+		switch(Level)
+		{
+			case 1:
+				ActiveFruit = "Cherry";
+				break;
+			case 2:
+				ActiveFruit = "Strawberry";
+				break;
+			case 3:
+				ActiveFruit = "Orange";
+				break;
+			case 4:
+				ActiveFruit = "Apple";
+				break;
+			case 5:
+				ActiveFruit = "Melon";
+				break;
+			case 6:
+				ActiveFruit = "Galaxian";
+				break;
+			case 7:
+				ActiveFruit = "Bell";
+				break;
+			default:
+				ActiveFruit = "Key";
+				break;
+		}
 		GameObject[] GameObjectArray = GameObject.FindGameObjectsWithTag("Fruit");
 		int i = 0; 
 		foreach (GameObject Fruit in GameObjectArray)

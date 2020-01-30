@@ -41,14 +41,33 @@ public class Pickup : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Fruit"))
         {
-            if (Level == 1) { Score += 100; }
-            else if (Level == 2) { Score += 300; }
-            else if (Level == 3) { Score += 500; }
-            else if (Level == 4) { Score += 700; }
-            else if (Level == 5) { Score += 1000; }
-            else if (Level == 6) { Score += 2000; }
-            else if (Level == 7) { Score += 3000; }
-            else if (Level > 7) { Score += 5000; }
+            switch (Level)
+            {
+                case 1:
+                    Score += 100;
+                    break;
+                case 2:
+                    Score += 300;
+                    break;
+                case 3:
+                    Score += 500;
+                    break;
+                case 4:
+                    Score += 700;
+                    break;
+                case 5:
+                    Score += 1000;
+                    break;
+                case 6:
+                    Score += 2000;
+                    break;
+                case 7:
+                    Score += 3000;
+                    break;
+                default:
+                    Score += 5000;
+                    break;
+            }
         }
         if (RemainingPickups == 0)
         {
