@@ -46,7 +46,7 @@ public class FruitSpawns : MonoBehaviour
 		}
 	}
 	
-	void OnTriggerEnter(collider other)
+	void OnTriggerEnter(Collider other)
 	{
 		if(other.gameObject.CompareTag("Fruit"))
 		{
