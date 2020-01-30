@@ -13,39 +13,69 @@ public class Pickup : MonoBehaviour
     public static event GhostMethod Powerup;
     public static event GhostMethod Powerdown;
 
-    public Text scoreText;
-    public Text levelText;
+    public Text ScoreText;
+    public Text LevelText;
 
     private static int Score = 0;
     private static int Level = 1;
-    
+
     void Update()
     {
-        scoreText.text = "Score: " + Score.ToString();
-        levelText.text = "Level: " + Level.ToString();
+        ScoreText.text = "Score: " + Score.ToString();
+        LevelText.text = "Level: " + Level.ToString();
     }
 
     void OnTriggerEnter(Collider other)
-	{
-		if (other.gameObject.CompareTag("PickupOrb"))
+    {
+        if (other.gameObject.CompareTag("PickupOrb"))
         {
             Destroy(other.gameObject);
-			Score = Score + 10;
+            Score = Score + 10;
             RemainingPickups--;
-		}
+        }
         else if (other.gameObject.CompareTag("Powerup"))
         {
             Destroy(other.gameObject);
             StartCoroutine("FruitRoutine");
             RemainingPickups--;
         }
+        else if (other.gameObject.CompareTag("Fruit"))
+        {
+            switch (Level)
+            {
+                case 1:
+                    Score += 100;
+                    break;
+                case 2:
+                    Score += 300;
+                    break;
+                case 3:
+                    Score += 500;
+                    break;
+                case 4:
+                    Score += 700;
+                    break;
+                case 5:
+                    Score += 1000;
+                    break;
+                case 6:
+                    Score += 2000;
+                    break;
+                case 7:
+                    Score += 3000;
+                    break;
+                default:
+                    Score += 5000;
+                    break;
+            }
+        }
         if (RemainingPickups == 0)
         {
             SceneManager.LoadScene("Main", LoadSceneMode.Single);
             Level++;
         }
-    }
 
+    }
     private IEnumerator FruitRoutine()
     {
         if (Powerup != null)
@@ -57,5 +87,10 @@ public class Pickup : MonoBehaviour
         {
             Powerdown();
         }
+    }
+
+    public static int getLevel()
+    {
+        return Level;
     }
 }
