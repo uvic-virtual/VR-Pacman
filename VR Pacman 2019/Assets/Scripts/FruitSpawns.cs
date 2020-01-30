@@ -7,7 +7,6 @@ public class FruitSpawns : MonoBehaviour
 	private string ActiveFruit;
 	private int FruitsCollected = 0;
 	private static int Level;
-	private GameObject ActiveFruitObject;
 	
 	
 	void Awake () 
@@ -27,30 +26,31 @@ public class FruitSpawns : MonoBehaviour
 		int i = 0; 
 		foreach (GameObject Fruit in GameObjectArray)
 		{
-			Fruit.SetActive(false);			
 			i++;
-			if(Fruit.name == ActiveFruit)
+			if(Fruit.name != ActiveFruit)
 			{
-				ActiveFruitObject = GameObjectArray[i];
+				Fruit.SetActive(false);
 			}
 		}
-		Invoke("SpawnActiveFruit", 30f);
+		Invoke("SpawnActiveFruit", 10f);
 	}
 	
 	void SpawnActiveFruit()
 	{
+
 		if(FruitsCollected < 2)
 		{
 			FruitsCollected++;
-			ActiveFruitObject.SetActive(true);
+			transform.position += Vector3.up * 8.0f;
 		}
 	}
 	
 	void OnTriggerEnter(Collider other)
 	{
-		if(other.gameObject.CompareTag("Fruit"))
+		if (other.gameObject.CompareTag("Player"))
 		{
-			Invoke("SpawnActiveFruit", 30f);
+			transform.position += Vector3.down * 8.0f;
+			Invoke("SpawnActiveFruit", 10f);
 		}
 	}
 }

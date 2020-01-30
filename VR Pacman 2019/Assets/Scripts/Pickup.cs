@@ -6,23 +6,23 @@ using UnityEngine.SceneManagement;
 public class Pickup : MonoBehaviour
 {
     public float PowerupDelay = 15;
-    public int remainingPickups = 168;
+    public int RemainingPickups = 168;
 
     //Events for ghosts
     public delegate void GhostMethod();
     public static event GhostMethod Powerup;
     public static event GhostMethod Powerdown;
 
-    public Text scoreText;
-    public Text levelText;
+    public Text ScoreText;
+    public Text LevelText;
 
-    private static int score = 0;
-    private static int level = 1;
+    private static int Score = 0;
+    private static int Level = 1;
     
     void Update()
     {
-        scoreText.text = "Score: " + score.ToString();
-        levelText.text = "Level: " + level.ToString();
+        ScoreText.text = "Score: " + Score.ToString();
+        LevelText.text = "Level: " + Level.ToString();
     }
 
     void OnTriggerEnter(Collider other)
@@ -30,19 +30,30 @@ public class Pickup : MonoBehaviour
 		if (other.gameObject.CompareTag("PickupOrb"))
         {
             Destroy(other.gameObject);
-			score = score + 10;
-            remainingPickups--;
+			Score = Score + 10;
+            RemainingPickups--;
 		}
         else if (other.gameObject.CompareTag("Powerup"))
         {
             Destroy(other.gameObject);
             StartCoroutine("FruitRoutine");
-            remainingPickups--;
+            RemainingPickups--;
         }
-        if (remainingPickups == 0)
+        else if (other.gameObject.CompareTag("Fruit"))
+        {
+            if (Level == 1) { Score += 100; }
+            else if (Level == 2) { Score += 300; }
+            else if (Level == 3) { Score += 500; }
+            else if (Level == 4) { Score += 700; }
+            else if (Level == 5) { Score += 1000; }
+            else if (Level == 6) { Score += 2000; }
+            else if (Level == 7) { Score += 3000; }
+            else if (Level > 7) { Score += 5000; }
+        }
+        if (RemainingPickups == 0)
         {
             SceneManager.LoadScene("Main", LoadSceneMode.Single);
-            level++;
+            Level++;
         }
     }
 
@@ -61,6 +72,6 @@ public class Pickup : MonoBehaviour
 
     public static int getLevel()
     {
-        return level;
+        return Level;
     }
 }
