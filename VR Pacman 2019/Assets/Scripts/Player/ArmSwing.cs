@@ -56,6 +56,15 @@ public class ArmSwing : MonoBehaviour
         return new Vector3(direction.forward.x, 0, direction.forward.z).normalized;
     }
 
+    private bool CheckGrounded()
+    {
+        Collider playerCol = player.GetComponent<BoxCollider>();
+        
+        if(player.transform.position.y < 3)
+        {
+            return true;
+        }return false;
+    }
 
 
     private float GetSpeed()
