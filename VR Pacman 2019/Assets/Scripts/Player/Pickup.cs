@@ -19,9 +19,6 @@ public class Pickup : MonoBehaviour
     private static int Score = 0;
     private static int Level = 1;
 
-    public AudioSource FruitSound;
-    public AudioSource PickupOrbSound;
-
     void Update()
     {
         ScoreText.text = "Score: " + Score.ToString();
@@ -32,7 +29,6 @@ public class Pickup : MonoBehaviour
     {
         if (other.gameObject.CompareTag("PickupOrb"))
         {
-            PickupOrbSound.Play();
             Destroy(other.gameObject);
             Score = Score + 10;
             RemainingPickups--;
@@ -45,7 +41,6 @@ public class Pickup : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Fruit"))
         {
-            FruitSound.Play();
             switch (Level)
             {
                 case 1:
