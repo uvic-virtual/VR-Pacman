@@ -29,6 +29,7 @@ public class Pickup : MonoBehaviour
     {
         if (other.gameObject.CompareTag("PickupOrb"))
         {
+            FindObjectOfType<AudioManager>().Play("Waka"); 
             Destroy(other.gameObject);
             Score = Score + 10;
             RemainingPickups--;
@@ -41,6 +42,7 @@ public class Pickup : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Fruit"))
         {
+            FindObjectOfType<AudioManager>().Play("Fruit");
             switch (Level)
             {
                 case 1:
