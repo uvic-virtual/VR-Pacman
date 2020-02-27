@@ -10,7 +10,7 @@ public class FruitSpawns : MonoBehaviour
 
 	void Awake()
 	{
-		Level = Pickup.getLevel();
+		Level = PickUpFruits.getLevel();
 
 		switch (Level)
 		{

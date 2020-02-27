@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class Pickup : MonoBehaviour
+public class PickUpFruits : MonoBehaviour
 {
     public float PowerupDelay = 15;
     public int RemainingPickups = 168;

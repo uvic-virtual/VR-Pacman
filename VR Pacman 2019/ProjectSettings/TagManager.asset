@@ -12,6 +12,7 @@ TagManager:
   - projectile
   - PlayerCamera
   - Fruit
+  - pickupable
   layers:
   - Default
   - TransparentFX
