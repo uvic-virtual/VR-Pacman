@@ -58,8 +58,6 @@ public class ArmSwing : MonoBehaviour
 
     private bool CheckGrounded()
     {
-        Collider playerCol = player.GetComponent<BoxCollider>();
-        
         if(player.transform.position.y < 3)
         {
             return true;
