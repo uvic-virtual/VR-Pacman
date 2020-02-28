@@ -8,25 +8,40 @@ public class PickUpObject : MonoBehaviour {
     [SerializeField] private SteamVR_Action_Boolean button;
     [SerializeField] private SteamVR_Input_Sources hand;
 
+    private Vector3 lastPosition;
     private bool holding;
     private GameObject collidingObj;
 
     void Start()
     {
+        lastPosition = gameObject.transform.position;
         collidingObj = null;
         holding = false;
     }
+
     void Update()
     {
-        if(button.GetStateDown(hand) && holding)
+        CheckPose();
+        lastPosition = gameObject.transform.position;
+    }
+
+    private void CheckPose()
+    {
+        if (button.GetStateDown(hand) && holding)
         {
+            //release object
             holding = false;
             collidingObj.GetComponent<Rigidbody>().useGravity = true;
             collidingObj.GetComponent<Rigidbody>().isKinematic = false;
             collidingObj.transform.parent = null;
+
+            //////TODO yeet//////
+            Vector3 posDelta = gameObject.transform.position - lastPosition;
+            collidingObj.GetComponent<Rigidbody>().AddForce(posDelta);
+            /////////////////////
             collidingObj = null;
         }
-        else if (button.GetStateDown(hand) && collidingObj!= null &&!holding)
+        else if (button.GetStateDown(hand) && collidingObj != null && !holding)
         {
             //pick up an object
             holding = true;
@@ -37,7 +52,6 @@ public class PickUpObject : MonoBehaviour {
             //collidingObj.transform.localRotation = Quaternion.Euler(0, 0, 0);
         }
     }
-
 
     private void OnTriggerEnter(Collider other)
     {
