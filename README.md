@@ -3,9 +3,9 @@
 <p>Unity version:2017.4.1f1</p>
 
 <p>Controls:</p>
-<p>hold the trigger on the left controller and swing your arms to move</p>
-<p>use the right controller and the trigger to pick up items</p>
-<p>insert the coin to the archade machine to start game</p>
+<p>hold the trigger on the left controller and swing your arms to move \n
+use the right controller and the trigger to pick up items\n
+insert the coin to the archade machine to start game</p>
 
 <img src="https://github.com/uvic-virtual/VR-Pacman/blob/master/media/VR%20PacMan%20in%20game%20photo%202019-11-18.PNG?raw=true" alt="in game photo">
 
