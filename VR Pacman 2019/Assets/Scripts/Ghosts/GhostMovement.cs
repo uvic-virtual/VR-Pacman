@@ -32,14 +32,14 @@ public abstract class GhostMovement : MonoBehaviour
         Agent = GetComponent<NavMeshAgent>();
 
         //Add delegates that change ghost's state to player 
-        Pickup.Powerup += OnPlayerPowerUp;
-        Pickup.Powerdown += OnPlayerPowerDown;
+        PickUpFruits.Powerup += OnPlayerPowerUp;
+        PickUpFruits.Powerdown += OnPlayerPowerDown;
     }
 
     private void OnDestroy()
     {
-        Pickup.Powerup -= OnPlayerPowerUp;
-        Pickup.Powerdown -= OnPlayerPowerDown;
+        PickUpFruits.Powerup -= OnPlayerPowerUp;
+        PickUpFruits.Powerdown -= OnPlayerPowerDown;
     }
 
     private void OnPlayerPowerUp()
