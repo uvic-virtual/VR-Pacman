@@ -2,7 +2,7 @@
 <p>A pacman remake in VR where you run around the classic pac-man maze, collect shiny spheres, and avoid ghosts!</p>
 <p>Unity version:2017.4.1f1</p>
 
-<p style="color:blue;">Controls:<br>
+<p style="color:red;">Controls:<br>
 hold the trigger on the left controller and swing your arms to move <br>
 use the right controller and the trigger to pick up items <br>
 insert the coin to the archade machine to start game</p>
