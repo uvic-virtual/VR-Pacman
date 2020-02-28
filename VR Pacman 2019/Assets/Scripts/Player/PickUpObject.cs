@@ -41,7 +41,6 @@ public class PickUpObject : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.tag);
         if (other.gameObject.tag == "Pickupable" && !holding)
         {
             collidingObj = other.gameObject;
