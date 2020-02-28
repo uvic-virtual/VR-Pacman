@@ -26,7 +26,7 @@ public class AudioManager : MonoBehaviour {
 
     private void Start()
     {
-       //Play("creepyStartupMusic");
+        Play("Creepy_Startup_Music");
         Play("Creepy_Background_Music"); //TO FIX: starts playing at the same time as startup music
     }
     //searches for passed in clipname in sounds array and plays it
