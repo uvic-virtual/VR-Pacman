@@ -26,7 +26,6 @@ public class AudioManager : MonoBehaviour {
 
     private void Start()
     {
-        Debug.Log("playing");
         Play("Creepy_Startup_Music");
         Play("Creepy_Background_Music"); //TO FIX: starts playing at the same time as startup music
     }
