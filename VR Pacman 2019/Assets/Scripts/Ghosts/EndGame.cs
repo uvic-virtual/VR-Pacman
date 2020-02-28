@@ -9,7 +9,7 @@ public class EndGame : MonoBehaviour {
 	}
 	private void OnTriggerEnter(Collider other)
 	{
-		if(other.gameObject.name == "PlayerCam")
+		if(other.gameObject.name == "PlayerFeet")
 		{
 			SceneManager.LoadScene("0.Menu");
 		}
