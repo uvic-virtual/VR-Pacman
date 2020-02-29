@@ -13,11 +13,17 @@ public class PickUpFruits : MonoBehaviour
     public static event GhostMethod Powerup;
     public static event GhostMethod Powerdown;
 
-    public Text ScoreText;
-    public Text LevelText;
+    private Text ScoreText;
+    private Text LevelText;
 
     private static int Score = 0;
     private static int Level = 1;
+
+    void Start()
+    {
+        ScoreText = GameObject.Find("Score").GetComponent<Text>();
+        LevelText = GameObject.Find("Level").GetComponent<Text>();
+    }
 
     void Update()
     {
