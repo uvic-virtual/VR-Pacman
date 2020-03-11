@@ -19,7 +19,8 @@ public class StartGame : MonoBehaviour {
 	{
 		if(other.gameObject.name == "Coin")
 		{
-			Destroy(other.gameObject);
+            StartCoroutine(FindObjectOfType<AudioManager>().Play("Insert_Coin"));
+            Destroy(other.gameObject);
 			Destroy(floor);
 		}
 	}

@@ -1,6 +1,17 @@
 ﻿using UnityEngine.Audio; //use this whenever you are working with sound
 using System;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
+
+/* AudioManager keeps track of most sounds in the game. Sounds are input in the array in the inspector.
+ * A sound can be called from any script using:
+ * 
+ * StartCoroutine(FindObjectOfType<AudioManager>().Play("Sound", time delay));
+ * 
+ * There is an optional argument when calling ArrayAudio to play the sound after a delay
+ * 
+ */
 
 public class AudioManager : MonoBehaviour {
 
@@ -26,11 +37,28 @@ public class AudioManager : MonoBehaviour {
 
     private void Start()
     {
-        Play("Creepy_Startup_Music");
-        Play("Creepy_Background_Music"); //TO FIX: starts playing at the same time as startup music
+        StartCoroutine(Play("Creepy_Startup_Music"));
+        StartCoroutine(Play("Creepy_Background_Music", 6.556f));  //plays after startup music
     }
+
     //searches for passed in clipname in sounds array and plays it
-    public void Play(string clipname){
+    public IEnumerator Play(string clipname, float delayTime = 0){
+        yield return new WaitForSeconds(delayTime);
+
+        //Syntax: Array.Find(arrayname, object => object.attribute == attributeToCompareTo)
+        Sound s = Array.Find(sounds, sound => sound.clipname == clipname);
+        if (s == null)
+        {
+            Debug.LogWarning("Sound " + clipname + " not found");
+            yield break;
+        }
+        s.source.Play();
+    }
+
+    //searches for passed in clipname and stops it (used for loop sounds)
+    public void Stop(string clipname)
+    {
+
         //Syntax: Array.Find(arrayname, object => object.attribute == attributeToCompareTo)
         Sound s = Array.Find(sounds, sound => sound.clipname == clipname);
         if (s == null)
@@ -38,6 +66,6 @@ public class AudioManager : MonoBehaviour {
             Debug.LogWarning("Sound " + clipname + " not found");
             return;
         }
-        s.source.Play();
+        s.source.Stop();
     }
 }

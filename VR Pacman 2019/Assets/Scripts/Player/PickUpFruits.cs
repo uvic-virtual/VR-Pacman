@@ -35,7 +35,7 @@ public class PickUpFruits : MonoBehaviour
     {
         if (other.gameObject.CompareTag("PickupOrb"))
         {
-            FindObjectOfType<AudioManager>().Play("Waka"); 
+            StartCoroutine(FindObjectOfType<AudioManager>().Play("Waka")); 
             Destroy(other.gameObject);
             Score = Score + 10;
             RemainingPickups--;
@@ -48,7 +48,7 @@ public class PickUpFruits : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Fruit"))
         {
-            FindObjectOfType<AudioManager>().Play("Fruit");
+            StartCoroutine(FindObjectOfType<AudioManager>().Play("Fruit"));
             switch (Level)
             {
                 case 1:
@@ -79,6 +79,7 @@ public class PickUpFruits : MonoBehaviour
         }
         if (RemainingPickups == 0)
         {
+            //StartCoroutine(FindObjectOfType<AudioManager>().Play("Intermission"));
             SceneManager.LoadScene("Main", LoadSceneMode.Single);
             Level++;
         }
