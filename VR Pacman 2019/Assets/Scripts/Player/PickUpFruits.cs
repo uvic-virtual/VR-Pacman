@@ -7,6 +7,7 @@ public class PickUpFruits : MonoBehaviour
 {
     public float PowerupDelay = 15;
     public int RemainingPickups = 168;
+    public Text finalTime;
 
     //Events for ghosts
     public delegate void GhostMethod();
@@ -80,6 +81,7 @@ public class PickUpFruits : MonoBehaviour
         if (RemainingPickups == 0)
         {
             SceneManager.LoadScene("Main", LoadSceneMode.Single);
+            finalTime = GameObject.Find("Player").GetComponent<Timer>().timerText;
             Level++;
         }
 
